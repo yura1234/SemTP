@@ -1,0 +1,222 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+      <Schema Namespace="Хранилище Database1Model" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <!--Ошибки, обнаруженные при создании:
+предупреждение 6002: В таблице или представлении "C:\USERS\USER\DOCUMENTS\VISUAL STUDIO 2017\PROJECTS\WEBAPPLICATION1\WEBAPPLICATION1\APP_DATA\DATABASE1.MDF.dbo.CardTable" не определен первичный ключ. Ключ был выведен, а определение таблицы или представления было создано в режиме только для чтения.-->
+        <EntityType Name="CardTable">
+          <Key>
+            <PropertyRef Name="Id_card" />
+            <PropertyRef Name="Id_Tour" />
+            <PropertyRef Name="Id_Tourist" />
+          </Key>
+          <Property Name="Id_card" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Id_Tour" Type="int" Nullable="false" />
+          <Property Name="Id_Tourist" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="TouristTable">
+          <Key>
+            <PropertyRef Name="Id_tourist" />
+          </Key>
+          <Property Name="Id_tourist" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Name" Type="nchar" MaxLength="30" Nullable="false" />
+          <Property Name="SecondName" Type="nchar" MaxLength="30" Nullable="false" />
+          <Property Name="ThirdName" Type="nchar" MaxLength="30" Nullable="false" />
+          <Property Name="Passport" Type="nchar" MaxLength="100" Nullable="false" />
+          <Property Name="CreditCard" Type="nchar" MaxLength="40" Nullable="false" />
+        </EntityType>
+        <EntityType Name="TourTable">
+          <Key>
+            <PropertyRef Name="Id_tour" />
+          </Key>
+          <Property Name="Id_tour" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="City" Type="nchar" MaxLength="50" Nullable="false" />
+          <Property Name="DateTourStart" Type="date" Nullable="false" />
+          <Property Name="DateTourEnd" Type="date" Nullable="false" />
+          <Property Name="Price" Type="int" Nullable="false" />
+        </EntityType>
+        <Association Name="FK__CardTable__Id_To__267ABA7A">
+          <End Role="TourTable" Type="Self.TourTable" Multiplicity="1" />
+          <End Role="CardTable" Type="Self.CardTable" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="TourTable">
+              <PropertyRef Name="Id_tour" />
+            </Principal>
+            <Dependent Role="CardTable">
+              <PropertyRef Name="Id_Tour" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__CardTable__Id_To__276EDEB3">
+          <End Role="TouristTable" Type="Self.TouristTable" Multiplicity="1" />
+          <End Role="CardTable" Type="Self.CardTable" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="TouristTable">
+              <PropertyRef Name="Id_tourist" />
+            </Principal>
+            <Dependent Role="CardTable">
+              <PropertyRef Name="Id_Tourist" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="Хранилище Database1ModelContainer">
+          <EntitySet Name="TouristTable" EntityType="Self.TouristTable" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="TourTable" EntityType="Self.TourTable" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="CardTable" EntityType="Self.CardTable" store:Type="Tables" store:Schema="dbo">
+            <DefiningQuery>SELECT 
+    [CardTable].[Id_card] AS [Id_card], 
+    [CardTable].[Id_Tour] AS [Id_Tour], 
+    [CardTable].[Id_Tourist] AS [Id_Tourist]
+    FROM [dbo].[CardTable] AS [CardTable]</DefiningQuery>
+          </EntitySet>
+          <AssociationSet Name="FK__CardTable__Id_To__267ABA7A" Association="Self.FK__CardTable__Id_To__267ABA7A">
+            <End Role="TourTable" EntitySet="TourTable" />
+            <End Role="CardTable" EntitySet="CardTable" />
+          </AssociationSet>
+          <AssociationSet Name="FK__CardTable__Id_To__276EDEB3" Association="Self.FK__CardTable__Id_To__276EDEB3">
+            <End Role="TouristTable" EntitySet="TouristTable" />
+            <End Role="CardTable" EntitySet="CardTable" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="Database1Model" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="TouristTable">
+          <Key>
+            <PropertyRef Name="Id_tourist" />
+          </Key>
+          <Property Name="Id_tourist" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Name" Type="String" MaxLength="30" FixedLength="true" Unicode="true" Nullable="false" />
+          <Property Name="SecondName" Type="String" MaxLength="30" FixedLength="true" Unicode="true" Nullable="false" />
+          <Property Name="ThirdName" Type="String" MaxLength="30" FixedLength="true" Unicode="true" Nullable="false" />
+          <Property Name="Passport" Type="String" MaxLength="100" FixedLength="true" Unicode="true" Nullable="false" />
+          <Property Name="CreditCard" Type="String" MaxLength="40" FixedLength="true" Unicode="true" Nullable="false" />
+          <NavigationProperty Name="CardTable" Relationship="Self.FK__CardTable__Id_To__276EDEB3" FromRole="TouristTable" ToRole="CardTable" />
+        </EntityType>
+        <EntityType Name="TourTable">
+          <Key>
+            <PropertyRef Name="Id_tour" />
+          </Key>
+          <Property Name="Id_tour" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="City" Type="String" MaxLength="50" FixedLength="true" Unicode="true" Nullable="false" />
+          <Property Name="DateTourStart" Type="DateTime" Nullable="false" Precision="0" />
+          <Property Name="DateTourEnd" Type="DateTime" Nullable="false" Precision="0" />
+          <Property Name="Price" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="CardTable" Relationship="Self.FK__CardTable__Id_To__267ABA7A" FromRole="TourTable" ToRole="CardTable" />
+        </EntityType>
+        <EntityType Name="CardTable">
+          <Key>
+            <PropertyRef Name="Id_card" />
+            <PropertyRef Name="Id_Tour" />
+            <PropertyRef Name="Id_Tourist" />
+          </Key>
+          <Property Name="Id_card" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Id_Tour" Type="Int32" Nullable="false" />
+          <Property Name="Id_Tourist" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="TouristTable" Relationship="Self.FK__CardTable__Id_To__276EDEB3" FromRole="CardTable" ToRole="TouristTable" />
+          <NavigationProperty Name="TourTable" Relationship="Self.FK__CardTable__Id_To__267ABA7A" FromRole="CardTable" ToRole="TourTable" />
+        </EntityType>
+        <Association Name="FK__CardTable__Id_To__276EDEB3">
+          <End Role="TouristTable" Type="Self.TouristTable" Multiplicity="1" />
+          <End Role="CardTable" Type="Self.CardTable" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="TouristTable">
+              <PropertyRef Name="Id_tourist" />
+            </Principal>
+            <Dependent Role="CardTable">
+              <PropertyRef Name="Id_Tourist" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__CardTable__Id_To__267ABA7A">
+          <End Role="TourTable" Type="Self.TourTable" Multiplicity="1" />
+          <End Role="CardTable" Type="Self.CardTable" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="TourTable">
+              <PropertyRef Name="Id_tour" />
+            </Principal>
+            <Dependent Role="CardTable">
+              <PropertyRef Name="Id_Tour" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="Database1Entities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="TouristTable" EntityType="Self.TouristTable" />
+          <EntitySet Name="TourTable" EntityType="Self.TourTable" />
+          <EntitySet Name="CardTable" EntityType="Self.CardTable" />
+          <AssociationSet Name="FK__CardTable__Id_To__276EDEB3" Association="Self.FK__CardTable__Id_To__276EDEB3">
+            <End Role="TouristTable" EntitySet="TouristTable" />
+            <End Role="CardTable" EntitySet="CardTable" />
+          </AssociationSet>
+          <AssociationSet Name="FK__CardTable__Id_To__267ABA7A" Association="Self.FK__CardTable__Id_To__267ABA7A">
+            <End Role="TourTable" EntitySet="TourTable" />
+            <End Role="CardTable" EntitySet="CardTable" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="Хранилище Database1ModelContainer" CdmEntityContainer="Database1Entities">
+          <EntitySetMapping Name="TouristTable">
+            <EntityTypeMapping TypeName="Database1Model.TouristTable">
+              <MappingFragment StoreEntitySet="TouristTable">
+                <ScalarProperty Name="Id_tourist" ColumnName="Id_tourist" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="SecondName" ColumnName="SecondName" />
+                <ScalarProperty Name="ThirdName" ColumnName="ThirdName" />
+                <ScalarProperty Name="Passport" ColumnName="Passport" />
+                <ScalarProperty Name="CreditCard" ColumnName="CreditCard" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="TourTable">
+            <EntityTypeMapping TypeName="Database1Model.TourTable">
+              <MappingFragment StoreEntitySet="TourTable">
+                <ScalarProperty Name="Id_tour" ColumnName="Id_tour" />
+                <ScalarProperty Name="City" ColumnName="City" />
+                <ScalarProperty Name="DateTourStart" ColumnName="DateTourStart" />
+                <ScalarProperty Name="DateTourEnd" ColumnName="DateTourEnd" />
+                <ScalarProperty Name="Price" ColumnName="Price" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="CardTable">
+            <EntityTypeMapping TypeName="Database1Model.CardTable">
+              <MappingFragment StoreEntitySet="CardTable">
+                <ScalarProperty Name="Id_card" ColumnName="Id_card" />
+                <ScalarProperty Name="Id_Tour" ColumnName="Id_Tour" />
+                <ScalarProperty Name="Id_Tourist" ColumnName="Id_Tourist" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="false" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="Нет" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>

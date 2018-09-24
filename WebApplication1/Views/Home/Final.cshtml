@@ -1,0 +1,22 @@
+﻿
+@{
+    ViewBag.Title = "Final";
+}
+
+<!DOCTYPE html>
+
+@model Tuple<WebApplication1.Models.Tour, WebApplication1.Models.Tourist>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>Третья страница</title>
+</head>
+<body>
+    <div>
+        <h2>Спасибо @Model.Item2.Name за то, что воспользовались нашим туроператором.</h2>
+        <h2>Ваш тур в @Model.Item1.City Успешно Оформлен!</h2>
+
+    </div>
+</body>
+</html>

@@ -1,0 +1,46 @@
+﻿
+@{
+    ViewBag.Title = "Next";
+}
+
+@model WebApplication1.Models.Tour
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>Вторая страница</title>
+</head>
+<body>
+    <div>
+        <h2>Введите личные данные для тура @Model.City</h2>
+        <h2>Который состояиться с @Model.DateTourStart по @Model.DateTourEnd</h2>
+        <h2>И будет стоить @Model.Price рублей</h2>
+
+        @using (Html.BeginForm("Final", "Home", FormMethod.Post))
+        {
+  
+            <div class="row">
+                <div class="col-md-4 order-md-2 mb-4">
+                    <label>Введите имя</label>
+                    @Html.TextBox("txt_Name", null, new { @class = "form-control" })
+                    <label>Введите фамилию</label>
+                    @Html.TextBox("txt_SecondName", null, new { @class = "form-control" })
+                    <label>Введите отчество</label>
+                    @Html.TextBox("txt_ThirdName", null, new { @class = "form-control" })
+                    <label>Введите номер пасспорта</label>
+                    @Html.TextBox("txt_Passport", null, new { @class = "form-control" })
+                    <label>Введите номер кредитной карты</label>
+                    @Html.TextBox("txt_CreditCard", null, new { @class = "form-control" })
+                </div>
+            </div>
+
+
+        <button type="submit" class="btn btn-primary">Купить Тур</button>
+        }
+
+    </div>
+</body>
+</html>
+

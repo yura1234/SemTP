@@ -1,0 +1,45 @@
+﻿
+@{
+    ViewBag.Title = "Index";
+}
+
+@model WebApplication1.Models.Tour
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>Первая страница</title>
+</head>
+<body>
+    <div>
+        <h1>Добро пожаловать в туристическую компанию</h1>
+
+        @using (Html.BeginForm("Next", "Home", FormMethod.Post))
+        {
+            @Html.DropDownListFor(model => model.SelectedTour, Model.Tours, "- Выберите Тур -", new { @class = "form-control" })
+
+            <button type="submit" class="btn btn-primary">Выбрать Тур</button>
+        }
+
+        @*<table class="table table-dark">
+            <tbody>
+
+                <tr>
+                    @foreach (var item in Model)
+                    {
+                        <td> @Html.DisplayFor(modelItem => item.City) </td>
+                        <td> @Html.DisplayFor(modelItem => item.DateTourStart) </td>
+                        <td> @Html.DisplayFor(modelItem => item.DateTourEnd) </td>
+                    }
+                </tr>
+
+            </tbody>
+        </table>*@
+
+
+    </div>
+</body>
+</html>
+
